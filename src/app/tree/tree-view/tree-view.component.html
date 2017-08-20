@@ -1,0 +1,14 @@
+<ul>
+  <li *ngFor="let node of nodes, let i index">
+    <span><input type="checkbox" [checked]="i" (click)="check(i)"/></span>
+    <span (click)="toggle()"> {{ node.title}}</span>
+    <div *ngIf="true">
+      <ul>
+        <li *ngFor="let infoUnit of node.infoUnits">
+          {{ infoUnit.name}}
+        </li>
+      </ul>
+      <app-tree-view [nodes]="node.children"></app-tree-view>
+    </div>
+  </li>
+</ul>
