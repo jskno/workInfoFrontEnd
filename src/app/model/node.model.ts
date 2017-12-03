@@ -2,18 +2,18 @@ import {InfoUnit} from './info-unit.model';
 
 export class Node {
   public id: number;
-  public order: number;
+  public nodeOrder: number;
   public title: string;
-  public children: Node[];
+  public childrenNodes: Node[];
   public infoUnits: InfoUnit[];
   public parentId: number;
 
-  constructor(id: number, order: number, title: string, children: Node[],
+  constructor(id: number, nodeOrder: number, title: string, childrenNodes: Node[],
               infoUnits: InfoUnit[], parentId: number) {
     this.id =  id;
-    this.order = order;
+    this.nodeOrder = nodeOrder;
     this.title = title;
-    this.children = children;
+    this.childrenNodes = childrenNodes;
     this.infoUnits = infoUnits;
     this.parentId = parentId;
   }

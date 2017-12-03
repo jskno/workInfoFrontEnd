@@ -1,7 +1,10 @@
 import {Tree} from '../model/tree.model';
 import {Node} from '../model/node.model';
 import {Subject} from 'rxjs/Subject';
+import {NodeService} from "./node.service";
+import {Injectable} from "@angular/core";
 
+@Injectable()
 export class TreeService {
   treeChanged = new Subject<Tree>();
   tree: Tree = new Tree(
@@ -68,7 +71,13 @@ export class TreeService {
         ]
       );
 
+  constructor(private nodeService: NodeService) {}
+
   getTree() {
     return this.tree;
+  }
+
+  fetchTree() {
+    return this.nodeService.fetchTree();
   }
 }

@@ -27,42 +27,46 @@ import { NodeStartComponent } from './nodes/node-start/node-start.component';
 import { NodesListComponent } from './nodes/nodes-list/nodes-list.component';
 import { NodeItemComponent } from './nodes/nodes-list/node-item/node-item.component';
 import { TabsComponent } from './home/tabs/tabs.component';
-import { ListComponent } from './home/list/list.component';
-import { ItemComponent } from './home/item/item.component';
+import {AuthService} from './auth/auth.service';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    InfoUnitsComponent,
     HomeComponent,
-    TreeComponent,
     ErrorPageComponent,
     DropdownDirective,
+    InfoUnitsComponent,
     InfoUnitsListComponent,
+    InfoUnitItemComponent,
     InfoUnitDetailComponent,
     InfoUnitEditComponent,
     InfoUnitStartComponent,
-    InfoUnitItemComponent,
-    TreeViewComponent,
     NodesComponent,
+    NodesListComponent,
+    NodeItemComponent,
     NodeDetailComponent,
     NodeEditComponent,
     NodeStartComponent,
-    NodesListComponent,
-    NodeItemComponent,
-    TabsComponent,
-    ListComponent,
-    ItemComponent
+    TreeComponent,
+    TreeViewComponent,
+    TabsComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule
   ],
-  providers: [InfoUnitService, NodeService, TreeService],
+  providers: [
+    // AuthService,
+    InfoUnitService,
+    NodeService,
+    TreeService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

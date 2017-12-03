@@ -22,7 +22,7 @@ export class TreeViewComponent {
   // }
 
   // checkRecursive(state) {
-  //   this.node.children.forEach(child => {
+  //   this.node.childrenNodes.forEach(child => {
   //     child.checked = state;
   //     child.checkRecusive(state);
   //   })

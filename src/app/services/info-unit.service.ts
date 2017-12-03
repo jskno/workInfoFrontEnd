@@ -4,68 +4,72 @@ import {forEach} from '@angular/router/src/utils/collection';
 import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
 import {NodeService} from './node.service';
+import {INFO_UNITS} from '../mock-data/mock-info-units';
+import {Observable} from 'rxjs/Observable';
+import {Http, Response} from '@angular/http';
+import 'rxjs/Rx';
+import {AbstractService} from './abstract.service';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable()
-export class InfoUnitService {
+export class InfoUnitService extends AbstractService {
+  FETCH_INFO_UNITS = '/infounit/all';
+  FETCH_INFO_UNIT_BY_ID = '/infounit/';
+  SAVE_INFO_UNIT = '/infounit/new';
   nodeInfoUnitsChanged = new Subject();
   infoUnitsChanged = new Subject();
+  infoUnits: InfoUnit[];
 
-  private infoUnits: InfoUnit[] = [
-    new InfoUnit(
-      1,
-      'micro1',
-      'A virtual machine in altia int env',
-      1,
-      [
-        new Attribute('name', 'vkvld001'),
-        new Attribute('applications', 'ms-task, ms-international'),
-      ]
-    ),
-    new InfoUnit(
-      2,
-      'micro2',
-      'A virtual machine in altia int env',
-      1,
-      [
-        new Attribute('name', 'vkvld002'),
-        new Attribute('applications', 'ms-trademark, ms-proceeding')
-      ]
-    ),
-    new InfoUnit(
-      3,
-      'serverAccess',
-      'Loging to virtual servers in altia int',
-      1,
-      [
-        new Attribute('user', 'devops'),
-        new Attribute('password', 'd3v0ps'),
-        new Attribute('commnad', 'ssh devops@vkvld001'),
-        new Attribute('logsPath', '/opt/...'),
-        new Attribute('jarsPath', '/opt/...'),
-        new Attribute('deployment Command', './puppet.sh')
-      ]
-    ),
-  ];
-
-  constructor(private nodeService: NodeService) {}
+  constructor(private nodeService: NodeService,
+              private http: Http,
+              // protected authService: AuthService
+  ) {
+    // super(authService);
+    super();
+  }
 
   getInfoUnits() {
-    return this.infoUnits.slice();
-  }
-
-  getInfoUnit(index: number) {
-    return this.infoUnits[index];
-  }
-
-  getInfoUnitsOfNode(nodeId: number) {
-    const infoUnitsOfNode = [];
-    this.getInfoUnits().forEach((infoUnit) => {
-      if (infoUnit.nodeId === nodeId) {
-        infoUnitsOfNode.push(infoUnit);
-      }
+    return new Observable(observer => {
+      setTimeout(() => {
+        observer.next(INFO_UNITS.slice());
+      }, 1000);
     });
-    return infoUnitsOfNode;
   }
+
+  getObsInfoUnitById(id: number) {
+    return new Observable(observer => {
+      setTimeout(() => {
+        observer.next(this.getInfoUnitById(id));
+      }, 1000);
+    });
+  }
+
+  getInfoUnitById(id: number) {
+    let keepGoing = true;
+    let selectedInfoUnit: InfoUnit = null;
+    INFO_UNITS.slice().forEach(
+      (infoUnit) => {
+        if (keepGoing) {
+          if (infoUnit.id === id) {
+            keepGoing = false;
+            selectedInfoUnit = infoUnit;
+          }
+        }
+      }
+    )
+    return selectedInfoUnit;
+  }
+
+  // getInfoUnitsOfNode(nodeId: number) {
+  //   const infoUnitsOfNode = [];
+  //   return this.getInfoUnits().map(
+  //     infoUnits => infoUnits.forEach((infoUnit) => {
+  //       if (infoUnit.nodeId === nodeId) {
+  //         infoUnitsOfNode.push(infoUnit);
+  //       }
+  //     })
+  //   );
+  // }
 
   addInfoUnitToNode(nodeId: number, infoUnit: InfoUnit) {
     this.nodeService.addInfoUnitToNode(nodeId, infoUnit);
@@ -73,8 +77,72 @@ export class InfoUnitService {
   }
 
   save(infoUnit: InfoUnit) {
-    this.infoUnits.push(infoUnit);
+    INFO_UNITS.push(infoUnit);
     this.infoUnitsChanged.next();
   }
+
+  fetchInfoUnits() {
+    return this.http
+      .get(this.BASEURL + this.FETCH_INFO_UNITS, this.getOptions())
+      .map(response => {
+        const data = response.json() as InfoUnit[];
+        return data;
+        }
+      )
+      .catch(
+        (error: Response) => {
+          return Observable.throw('Something went wrong!');
+        }
+      );
+  }
+
+  fetchInfoUnitById(id: number) {
+    return this.http
+      .get(this.BASEURL + this.FETCH_INFO_UNIT_BY_ID + id, this.getOptions())
+      .map(response => {
+        const data = response.json() as InfoUnit;
+        return data;
+      })
+      .catch(
+        (error: Response) => {
+          return Observable.throw('Something went wrong!');
+        }
+      );
+  }
+
+  saveInfoUnit(infoUnit: InfoUnit) {
+    return this.http
+      .post(this.BASEURL + this.SAVE_INFO_UNIT, infoUnit, this.getOptions())
+      .map(response => {
+        const data = response.json();
+        return data || {};
+      })
+      .catch(
+        (error: Response) => {
+          return Observable.throw('Something went wrong!');
+        }
+      );
+  }
+
+  onUpdate(infoUnit: InfoUnit) {
+    return this.http.put('http://', infoUnit);
+  }
+
+  // fetchInfoUnits() {
+  //   return this.http.get('http://swapi.co/api/people/')
+  //     .map((response: Response) => {
+  //       const data = response.json();
+  //       const extractedChars = data.results;
+  //       const chars = extractedChars.map((char) => {
+  //         return {name: char.name, side: ''};
+  //       });
+  //       return chars;
+  //     })
+  //     .subscribe(
+  //       (data) => {
+  //         console.log(data);
+  //       }
+  //     );
+  // }
 }
 
