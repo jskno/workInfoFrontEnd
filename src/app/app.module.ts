@@ -29,6 +29,10 @@ import { NodeItemComponent } from './nodes/nodes-list/node-item/node-item.compon
 import { TabsComponent } from './home/tabs/tabs.component';
 import {AuthService} from './auth/auth.service';
 import {CommonModule} from '@angular/common';
+import {CodeSnippetEditComponent} from "./code-snippets/code-snippet-edit/code-snippet-edit.component";
+import {CodeSnippetsListComponent} from "./code-snippets/code-snippets-list/code-snippets-list.component";
+import {CodeSnippetItemComponent} from "./code-snippets/code-snippets-list/code-snippet-item/code-snippet-item.component";
+import {SnippetFilterPipe} from "./code-snippets/snippet-filter.pipe";
 
 @NgModule({
   declarations: [
@@ -43,6 +47,9 @@ import {CommonModule} from '@angular/common';
     InfoUnitDetailComponent,
     InfoUnitEditComponent,
     InfoUnitStartComponent,
+    CodeSnippetEditComponent,
+    CodeSnippetsListComponent,
+    CodeSnippetItemComponent,
     NodesComponent,
     NodesListComponent,
     NodeItemComponent,
@@ -51,7 +58,8 @@ import {CommonModule} from '@angular/common';
     NodeStartComponent,
     TreeComponent,
     TreeViewComponent,
-    TabsComponent
+    TabsComponent,
+    SnippetFilterPipe
   ],
   imports: [
     CommonModule,

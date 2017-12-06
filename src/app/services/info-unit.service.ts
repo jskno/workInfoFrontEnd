@@ -10,11 +10,15 @@ import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 import {AbstractService} from './abstract.service';
 import {AuthService} from '../auth/auth.service';
+import {Node} from "../model/node.model";
+import {InfoUnitSave} from "../model/info-unit-save.model";
 
 @Injectable()
 export class InfoUnitService extends AbstractService {
   FETCH_INFO_UNITS = '/infounit/all';
   FETCH_INFO_UNIT_BY_ID = '/infounit/';
+  FETCH_INFO_UNITS_BY_NODE = '/infounit/bynode/'
+  FETCH_INFO_UNITS_BY_NODE_TITLE = '/infounit/bynodetitle/'
   SAVE_INFO_UNIT = '/infounit/new';
   nodeInfoUnitsChanged = new Subject();
   infoUnitsChanged = new Subject();
@@ -96,6 +100,36 @@ export class InfoUnitService extends AbstractService {
       );
   }
 
+  fetchInfoUnitsByNode(node: Node) {
+    return this.http
+      .get(this.BASEURL + this.FETCH_INFO_UNITS_BY_NODE + node.id, this.getOptions())
+      .map(response => {
+          const data = response.json() as InfoUnit[];
+          return data;
+        }
+      )
+      .catch(
+        (error: Response) => {
+          return Observable.throw('Something went wrong!');
+        }
+      );
+  }
+
+  fetchInfoUnitsByNodeTitle(nodeTitle: string) {
+    return this.http
+      .post(this.BASEURL + this.FETCH_INFO_UNITS_BY_NODE_TITLE, nodeTitle, this.getOptions())
+      .map(response => {
+          const data = response.json() as InfoUnit[];
+          return data;
+        }
+      )
+      .catch(
+        (error: Response) => {
+          return Observable.throw('Something went wrong!');
+        }
+      );
+  }
+
   fetchInfoUnitById(id: number) {
     return this.http
       .get(this.BASEURL + this.FETCH_INFO_UNIT_BY_ID + id, this.getOptions())
@@ -110,18 +144,22 @@ export class InfoUnitService extends AbstractService {
       );
   }
 
-  saveInfoUnit(infoUnit: InfoUnit) {
+  saveInfoUnit(infoUnit: InfoUnitSave) {
     return this.http
       .post(this.BASEURL + this.SAVE_INFO_UNIT, infoUnit, this.getOptions())
-      .map(response => {
-        const data = response.json();
-        return data || {};
-      })
+      // .map(response => {
+      //   const data = response.json();
+      //   return data || {};
+      // })
       .catch(
         (error: Response) => {
           return Observable.throw('Something went wrong!');
         }
       );
+  }
+
+  getEmptyInfoUnit() {
+    return new InfoUnit(null, null, null, null, null);
   }
 
   onUpdate(infoUnit: InfoUnit) {

@@ -1,8 +1,8 @@
 import {Tree} from '../model/tree.model';
 import {Node} from '../model/node.model';
 import {Subject} from 'rxjs/Subject';
-import {NodeService} from "./node.service";
-import {Injectable} from "@angular/core";
+import {NodeService} from './node.service';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class TreeService {
@@ -11,62 +11,62 @@ export class TreeService {
         [
         new Node(
           1,
-          1,
           'Environments',
+          1,
+          null,
           [
             new Node(
               4,
-              1,
               'Altia Int Env',
+              1,
+              1,
               [
                 new Node(
                   6,
-                  1,
                   'Database connections Altia Int',
+                  1,
+                  4,
                   [],
-                  [],
-                  4
+                  []
                 )
               ],
-              [],
-              1
+              []
             ),
             new Node(
               5,
-              2,
               'Euipo Int Env',
+              2,
+              1,
               [
                 new Node(
                   7,
-                  1,
                   'Database connections Euipo Int',
+                  1,
+                  5,
                   [],
-                  [],
-                  5
+                  []
                 )
               ],
-              [],
-              1
+              []
             )
           ],
-          [],
-          null
+          []
         ),
         new Node(
-          2,
           2,
           'ShareDox',
+          2,
+          null,
           [],
-          [],
-          null
+          []
         ),
         new Node(
           3,
-          3,
           'Stash',
+          3,
+          null,
           [],
-          [],
-          null
+          []
         )
         ]
       );
@@ -79,5 +79,9 @@ export class TreeService {
 
   fetchTree() {
     return this.nodeService.fetchTree();
+  }
+
+  getEmptyTree() {
+    return new Tree(null);
   }
 }

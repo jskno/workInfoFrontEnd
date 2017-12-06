@@ -50,6 +50,30 @@ export class NodeService extends AbstractService {
     return this.getNodeByIdAndNode(node, id);
   }
 
+  getNodeFromNodesById(id: number) {
+    this.fetchNodes().subscribe(
+      (nodes: Node[]) => {
+        return this.getNodeFromNodes(nodes, id);
+      }
+    );
+  }
+
+  getNodeFromNodes(nodes: Node[], id: number) {
+    for (const node of nodes) {
+      if (node.id === id) {
+        return node;
+      }
+    }
+  }
+
+  getNodeFromNodesByTitle(nodes: Node[], title: string) {
+    for (const node of nodes) {
+      if (node.title === title) {
+        return node;
+      }
+    }
+  }
+
   getNodeByIdAndNode(node: Node, id: number) {
     if (node.id === id) {
       return node;
@@ -68,7 +92,7 @@ export class NodeService extends AbstractService {
   }
 
   mapNode(node: Node, changedNode: Node) {
-    node.parentId = changedNode.parentId;
+    node.parentNode = changedNode.parentNode;
     node.nodeOrder = changedNode.nodeOrder;
     node.title = changedNode.title;
     node.childrenNodes = changedNode.childrenNodes;
@@ -116,10 +140,10 @@ export class NodeService extends AbstractService {
   saveNode(node: Node) {
     return this.http
       .post(this.BASEURL + this.SAVE_NODE, node, this.getOptions())
-      .map(response => {
-        const data = response.json();
-        return data || {};
-      })
+      // .map(response => {
+      //   const data = response.json();
+      //   return data || {};
+      // })
       .catch(
         (error: Response) => {
           return Observable.throw('Something went wrong!');
@@ -139,6 +163,10 @@ export class NodeService extends AbstractService {
           return Observable.throw('Something went wrong!');
         }
       );
+  }
+
+  getEmptyInfoNode() {
+    return new Node(null, null, null, null, null, null);
   }
 
 

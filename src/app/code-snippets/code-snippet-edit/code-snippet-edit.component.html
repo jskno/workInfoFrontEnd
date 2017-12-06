@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="cols-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-sm-offset-2">
+    <form [formGroup]="infoUnitForm" (ngSubmit)="onSubmit()">
+
+      <div id="infoUnitData">
+
+        <div class="row">
+          <div class="col-sm-7">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                class="form-control"
+                formControlName="name">
+              <span class="help-block"
+                    *ngIf="!infoUnitForm.get('name').valid && infoUnitForm.get('name').touched">
+                Please enter a name
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-5">
+              <label for="node">Node</label>
+              <select
+                id="node"
+                class="form-control"
+                formControlName="node">
+                <option
+                  *ngFor="let node of nodes"
+                  [value]="node">{{ node.title }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            class="form-control"
+            formControlName="description">
+        </div>
+
+
+      </div>
+
+      <div formArrayName="attributes">
+        <h4>Attributes</h4>
+
+        <div
+          *ngFor="let attributeControl of infoUnitForm.get('attributes').controls;let i = index"
+          [formGroupName]="i">
+          <div>
+
+            <div class="form-group">
+              <label for="key">Key:</label>
+              <input
+                type="text"
+                id="key"
+                formControlName="key"
+                class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="value">Value:</label>
+              <textarea
+                type="text"
+                id="value"
+                rows="15"
+                formControlName="value"
+                class="form-control">
+              </textarea>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <span
+        *ngIf="!infoUnitForm.valid && infoUnitForm.touched"
+        class="help-block">Invalid form</span>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="!infoUnitForm.valid">Submit</button>
+
+    </form>
+  </div>
+</div>
+
+
+
+

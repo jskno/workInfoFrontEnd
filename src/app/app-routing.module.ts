@@ -11,6 +11,8 @@ import {NodesComponent} from './nodes/nodes.component';
 import {NodeStartComponent} from './nodes/node-start/node-start.component';
 import {NodeEditComponent} from './nodes/node-edit/node-edit.component';
 import {NodeDetailComponent} from './nodes/node-detail/node-detail.component';
+import {CodeSnippetEditComponent} from 'app/code-snippets/code-snippet-edit/code-snippet-edit.component';
+import {CodeSnippetsListComponent} from './code-snippets/code-snippets-list/code-snippets-list.component';
 
 const appRoutes: Route[] = [
   {path: '', component: HomeComponent},
@@ -26,7 +28,9 @@ const appRoutes: Route[] = [
     {path: ':id', component: NodeDetailComponent},
     {path: ':id/edit', component: NodeEditComponent}
   ]},
-  {path: 'tree', component: TreeComponent}
+  {path: 'tree', component: TreeComponent},
+  {path: 'snippets', component: CodeSnippetsListComponent},
+  {path: 'new-snippet', component: CodeSnippetEditComponent}
 ];
 
 @NgModule({
