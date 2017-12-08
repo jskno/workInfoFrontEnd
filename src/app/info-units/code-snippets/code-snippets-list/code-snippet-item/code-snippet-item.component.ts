@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {InfoUnit} from '../../../model/info-unit.model';
+import {InfoUnit} from '../../../../model/info-unit.model';
 
 @Component({
   selector: 'app-code-snippet-item',

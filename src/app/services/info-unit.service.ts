@@ -1,6 +1,4 @@
 import {InfoUnit} from '../model/info-unit.model';
-import {Attribute} from '../model/attribute.model';
-import {forEach} from '@angular/router/src/utils/collection';
 import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
 import {NodeService} from './node.service';
@@ -10,8 +8,8 @@ import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 import {AbstractService} from './abstract.service';
 import {AuthService} from '../auth/auth.service';
-import {Node} from "../model/node.model";
-import {InfoUnitSave} from "../model/info-unit-save.model";
+import {Node} from '../model/node.model';
+import {InfoUnitSave} from '../model/info-unit-save.model';
 
 @Injectable()
 export class InfoUnitService extends AbstractService {
@@ -26,10 +24,9 @@ export class InfoUnitService extends AbstractService {
 
   constructor(private nodeService: NodeService,
               private http: Http,
-              // protected authService: AuthService
+              protected authService: AuthService
   ) {
-    // super(authService);
-    super();
+    super(authService);
   }
 
   getInfoUnits() {

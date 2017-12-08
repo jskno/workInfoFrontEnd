@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Params} from '@angular/router';
-import {NodeService} from '../../services/node.service';
-import {InfoUnitService} from '../../services/info-unit.service';
-import {Attribute} from '../../model/attribute.model';
-import {InfoUnit} from '../../model/info-unit.model';
-import {Node} from '../../model/node.model';
-import {InfoUnitSave} from "../../model/info-unit-save.model";
+import {NodeService} from '../../../services/node.service';
+import {InfoUnitService} from '../../../services/info-unit.service';
+import {Attribute} from '../../../model/attribute.model';
+import {InfoUnit} from '../../../model/info-unit.model';
+import {Node} from '../../../model/node.model';
+import {InfoUnitSave} from '../../../model/info-unit-save.model';
 
 @Component({
   selector: 'app-code-snippet-edit',
@@ -25,6 +25,7 @@ export class CodeSnippetEditComponent implements OnInit {
               private infoUnitService: InfoUnitService) { }
 
   ngOnInit() {
+    this.initEmptyForm();
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -32,17 +33,16 @@ export class CodeSnippetEditComponent implements OnInit {
           this.editMode = params['id'] != null;
           console.log(this.editMode);
           this.fetchNodes();
-          this.initForm();
         }
       );
   }
 
-  private initForm() {
-    let id = null;
-    let name = '';
-    let description = '';
-    let node = null;
-    let attributes: Attribute[] = null;
+  private initEmptyForm() {
+    const id = null;
+    const name = '';
+    const description = '';
+    const node = null;
+    const attributes: Attribute[] = null;
 
     this.infoUnitForm = new FormGroup({
       'id': new FormControl(id),
@@ -56,6 +56,14 @@ export class CodeSnippetEditComponent implements OnInit {
         })
       ])
     });
+  }
+
+  private setValues() {
+    let id = null;
+    let name = '';
+    let description = '';
+    let node = null;
+    let attributes: Attribute[] = null;
 
     if (this.editMode) {
       this.infoUnitService.fetchInfoUnitById(this.id)
@@ -64,7 +72,7 @@ export class CodeSnippetEditComponent implements OnInit {
             id = infoUnit.id;
             name = infoUnit.name;
             description = infoUnit.description;
-            node = infoUnit.infoNode;
+            node = this.nodeService.getNodeFromNodes(this.nodes, infoUnit.infoNode);
             attributes = infoUnit.attributes;
             this.infoUnitForm = new FormGroup({
               'id': new FormControl(id),
@@ -84,7 +92,10 @@ export class CodeSnippetEditComponent implements OnInit {
   private fetchNodes(): void {
     this.nodeService.fetchNodes()
       .subscribe(
-        (nodes: Node[]) => this.nodes = nodes
+        (nodes: Node[]) => {
+          this.nodes = nodes;
+          this.setValues();
+        }
       );
   }
 
@@ -94,7 +105,7 @@ export class CodeSnippetEditComponent implements OnInit {
       this.infoUnitForm.value.id,
       this.infoUnitForm.value.name,
       this.infoUnitForm.value.description,
-      this.infoUnitForm.value.node,
+      this.infoUnitForm.value.node.id,
       this.infoUnitForm.value.attributes
     );
     // this.infoUnitService.save(infoUnit);

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
-import {InfoUnit} from '../../model/info-unit.model';
-import {InfoUnitService} from '../../services/info-unit.service';
+import {InfoUnit} from '../../../model/info-unit.model';
+import {InfoUnitService} from '../../../services/info-unit.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SnippetFilterPipe} from '../snippet-filter.pipe';
 
@@ -12,8 +12,9 @@ import {SnippetFilterPipe} from '../snippet-filter.pipe';
 })
 export class CodeSnippetsListComponent implements OnInit, OnDestroy {
   infoUnitsChangeSubscription: Subscription;
-  codeSnippets: InfoUnit[];
+  codeSnippets: InfoUnit[] = [];
   CODE_SNIPPETS = 'Code Snippets';
+  searchingText = '';
 
   constructor(private infoUnitService: InfoUnitService,
               private router: Router,

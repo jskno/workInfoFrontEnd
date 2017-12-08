@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-import {InfoUnitService} from './info-unit.service';
 import {Node} from '../model/node.model';
-import {TreeService} from './tree.service';
 import {Subject} from 'rxjs/Subject';
 import {InfoUnit} from '../model/info-unit.model';
 import {PARENT_NODE} from '../mock-data/mock-parent-node';
@@ -9,7 +7,6 @@ import {AbstractService} from './abstract.service';
 import {Http} from '@angular/http';
 import {AuthService} from '../auth/auth.service';
 import {Observable} from 'rxjs/Observable';
-import {ObjectUnsubscribedError} from 'rxjs/Rx';
 
 @Injectable()
 export class NodeService extends AbstractService {
@@ -22,10 +19,9 @@ export class NodeService extends AbstractService {
   selectedNode = new Subject<Node>();
 
   constructor(private http: Http,
-              // protected authService: AuthService
+              protected authService: AuthService
   ) {
-    // super(authService);
-    super();
+    super(authService);
   }
 
   getParentNode() {

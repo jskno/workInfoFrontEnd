@@ -9,14 +9,12 @@ export class AbstractService {
   CONTEXT = '/workinfo';
   BASEURL = this.PROTOCOL + this.HOST + ':' + this.PORT + this.CONTEXT;
 
-  constructor(
-    // protected authService: AuthService
-  ) { }
+  constructor(protected authService: AuthService) { }
 
   protected getOptions() {
     const headers = new Headers({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + '431234' // this.authService.getToken()
+      'Authorization': 'Bearer ' + this.authService.getToken()
     });
     const options = new RequestOptions({headers: headers});
     return options;
