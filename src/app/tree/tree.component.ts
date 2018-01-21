@@ -14,6 +14,7 @@ import {TreeNode} from '../model/tree-node.model';
 export class TreeComponent implements OnInit, OnDestroy {
   treeChangedSubscrition: Subscription;
   tree: Tree = this.treeService.getEmptyTree();
+  isExpanded = false;
 
   constructor(private treeService: TreeService,
               private nodeService: NodeService) { }
@@ -64,6 +65,10 @@ export class TreeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.treeChangedSubscrition.unsubscribe();
+  }
+
+  toggle() {
+    this.treeService.treeExpanded.next();
   }
 
 }

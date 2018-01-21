@@ -2,6 +2,10 @@
   <h1>Nodes Tree Structure</h1>
 </div>
 <div class="row">
+  <span><input type="checkbox" (click)="toggle()"/>Expand the tree</span>
+</div>
+<hr />
+<div class="row">
   <div class="col-xs-12 col-sm-4">
       <app-tree-view [nodes]="tree.nodes"></app-tree-view>
   </div>

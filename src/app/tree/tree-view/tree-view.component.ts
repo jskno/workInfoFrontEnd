@@ -1,29 +1,27 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Node} from '../../model/node.model';
+import {TreeService} from '../../services/tree.service';
 
 @Component({
   selector: 'app-tree-view',
   templateUrl: './tree-view.component.html',
   styleUrls: ['./tree-view.component.css']
 })
-export class TreeViewComponent {
+export class TreeViewComponent implements OnInit {
   @Input() nodes: Node[];
   isExpanded = false;
 
-  toggle() {
-    this.isExpanded = !this.isExpanded;
+  constructor(private treeService: TreeService) {}
+
+  ngOnInit() {
+    this.treeService.treeExpanded.subscribe(
+      () => {
+        this.isExpanded = !this.isExpanded;
+      }
+    )
   }
 
-  // check() {
-  //   const newState = !this.checked;
-  //   this.checked = newState;
-  //   this.checkRecursive(newState);
-  // }
+  toggle() {
+  }
 
-  // checkRecursive(state) {
-  //   this.node.childrenNodes.forEach(child => {
-  //     child.checked = state;
-  //     child.checkRecusive(state);
-  //   })
-  // }
 }

@@ -7,7 +7,7 @@ import {ParentNode} from '../model/parent-node.model';
 
 @Injectable()
 export class TreeService {
-  treeChanged = new Subject<Tree>();
+  treeExpanded = new Subject();
   tree: Tree = new Tree(
         [
         new Node(
