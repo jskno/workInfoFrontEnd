@@ -3,6 +3,7 @@ import {Node} from '../model/node.model';
 import {Subject} from 'rxjs/Subject';
 import {NodeService} from './node.service';
 import {Injectable} from '@angular/core';
+import {ParentNode} from '../model/parent-node.model';
 
 @Injectable()
 export class TreeService {
@@ -19,13 +20,13 @@ export class TreeService {
               4,
               'Altia Int Env',
               1,
-              1,
+              new ParentNode(1, 'Environments'),
               [
                 new Node(
                   6,
                   'Database connections Altia Int',
                   1,
-                  4,
+                  new ParentNode(4, 'Altia Int Env'),
                   [],
                   []
                 )
@@ -36,13 +37,13 @@ export class TreeService {
               5,
               'Euipo Int Env',
               2,
-              1,
+              new ParentNode(1, 'Environments'),
               [
                 new Node(
                   7,
                   'Database connections Euipo Int',
                   1,
-                  5,
+                  new ParentNode(5, 'Euipo Int Env'),
                   [],
                   []
                 )

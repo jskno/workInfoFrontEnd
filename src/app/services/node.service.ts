@@ -7,6 +7,7 @@ import {AbstractService} from './abstract.service';
 import {Http} from '@angular/http';
 import {AuthService} from '../auth/auth.service';
 import {Observable} from 'rxjs/Observable';
+import {NodeSave} from '../model/node-save.model';
 
 @Injectable()
 export class NodeService extends AbstractService {
@@ -133,7 +134,7 @@ export class NodeService extends AbstractService {
       );
   }
 
-  saveNode(node: Node) {
+  saveNode(node: NodeSave) {
     return this.http
       .post(this.BASEURL + this.SAVE_NODE, node, this.getOptions())
       // .map(response => {

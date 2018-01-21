@@ -1,0 +1,16 @@
+<a
+  style="cursor: pointer"
+  [routerLink]="[node.id]"
+  routerLinkActive="active"
+  class="list-group-item clearfix">
+  <div class="pull-left">
+    <h4 class="list-group-item-heading">
+      {{ node.title }}
+    </h4>
+    <p class="list-group-item-text">
+      <span *ngIf="node.parentNode">{{ node.parentNode.title }}</span>
+      <span *ngIf="!node.parentNode">Parent Node</span>
+      <span>- {{node.nodeOrder}}</span>
+    </p>
+  </div>
+</a>

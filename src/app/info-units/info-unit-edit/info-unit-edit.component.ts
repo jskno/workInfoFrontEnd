@@ -1,25 +1,24 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Params} from '@angular/router';
-import {NodeService} from '../../../services/node.service';
-import {InfoUnitService} from '../../../services/info-unit.service';
-import {Attribute} from '../../../model/attribute.model';
-import {InfoUnit} from '../../../model/info-unit.model';
-import {Node} from '../../../model/node.model';
-import {InfoUnitSave} from '../../../model/info-unit-save.model';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {NodeService} from '../../services/node.service';
+import {Node} from '../../model/node.model';
+import {InfoUnit} from '../../model/info-unit.model';
+import {InfoUnitService} from '../../services/info-unit.service';
+import {Attribute} from '../../model/attribute.model';
+import {InfoUnitSave} from '../../model/info-unit-save.model';
 import {Location} from '@angular/common';
 
 @Component({
-  selector: 'app-code-snippet-edit',
-  templateUrl: './code-snippet-edit.component.html',
-  styleUrls: ['./code-snippet-edit.component.css']
+  selector: 'app-info-unit-edit',
+  templateUrl: './info-unit-edit.component.html',
+  styleUrls: ['./info-unit-edit.component.css']
 })
-export class CodeSnippetEditComponent implements OnInit {
+export class InfoUnitEditComponent implements OnInit {
   id: number;
   editMode = false;
   infoUnitForm: FormGroup;
   nodes: Node[];
-  CODE_SNIPPETS = 'Code Snippets';
 
   constructor(private route: ActivatedRoute,
               private nodeService: NodeService,
@@ -51,13 +50,9 @@ export class CodeSnippetEditComponent implements OnInit {
       'name': new FormControl(name, [Validators.required]),
       'description': new FormControl(description, [Validators.required]),
       'node': new FormControl(node),
-      'attributes': new FormArray([
-        new FormGroup({
-          'key': new FormControl('Code'),
-          'value': new FormControl('')
-        })
-      ])
+      'attributes': new FormArray([])
     });
+
   }
 
   private setValues() {
@@ -89,6 +84,7 @@ export class CodeSnippetEditComponent implements OnInit {
           }
         )
     }
+
   }
 
   private fetchNodes(): void {
@@ -132,5 +128,4 @@ export class CodeSnippetEditComponent implements OnInit {
   onCancel() {
     this._location.back();
   }
-
 }

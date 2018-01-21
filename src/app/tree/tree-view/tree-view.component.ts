@@ -8,11 +8,10 @@ import {Node} from '../../model/node.model';
 })
 export class TreeViewComponent {
   @Input() nodes: Node[];
-  expanded: boolean;
-  checked: boolean;
+  isExpanded = false;
 
   toggle() {
-    this.expanded = !this.expanded;
+    this.isExpanded = !this.isExpanded;
   }
 
   // check() {

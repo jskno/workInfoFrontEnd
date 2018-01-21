@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-xs-8">
+    <h1>{{ infoUnit.name }}</h1>
+  </div>
+  <div class="col-xs-4">
+    <div
+      class="btn-group"
+      appDropdown>
+      <button
+        type="button"
+        class="btn btn-primary dropdown-toggle">
+        Manage Info Unit <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a (click)="addInfoUnitToNode(1)" style="cursor: pointer;">Add Info Unit to Node</a></li>
+        <li><a style="cursor: pointer;" (click)="onEditInfoUnit()">Edit Info Unit</a></li>
+        <li><a style="cursor: pointer;">Delete Info Unit</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <h3>{{ infoUnit.description }}</h3>
+  </div>
+</div>
+<br />
+<div class="col-sm-12">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let attribute of infoUnit.attributes">
+        <td>{{ attribute.key }}</td>
+        <td>{{ attribute.value }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<hr>

@@ -1,20 +1,24 @@
 import {InfoUnit} from './info-unit.model';
-import {ParentNode} from './parent-node.model';
+import {Node} from './node.model';
 
-export class Node {
+export class NodeSave {
   public id: number;
   public title: string;
   public nodeOrder: number;
-  public parentNode: ParentNode;
+  public parentNode: Node;
   public childrenNodes: Node[];
   public infoUnits: InfoUnit[];
 
-  constructor(id: number, title: string, nodeOrder: number, parentNode: ParentNode,
+  constructor(id: number, title: string, nodeOrder: number, parentNode: number,
               childrenNodes: Node[], infoUnits: InfoUnit[]) {
     this.id =  id;
     this.title = title;
     this.nodeOrder = nodeOrder;
-    this.parentNode = parentNode;
+    if (parentNode) {
+      this.parentNode = new Node(parentNode, null, null, null, null, null);
+    } else {
+      this.parentNode = null;
+    }
     this.childrenNodes = childrenNodes;
     this.infoUnits = infoUnits;
   }

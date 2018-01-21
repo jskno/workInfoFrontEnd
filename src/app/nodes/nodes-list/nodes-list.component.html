@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success" (click)="onNewNode()">New Node</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12 pre-scrollable">
+    <app-node-item
+      *ngFor="let node of nodes"
+      [node]="node">
+    </app-node-item>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import {Node} from '../model/node.model';
+import {ParentNode} from '../model/parent-node.model';
 
 export const PARENT_NODE: Node =
   new Node(
@@ -11,19 +12,19 @@ export const PARENT_NODE: Node =
         1,
         'Environments',
         1,
-        0,
+        new ParentNode(0, 'Information'),
         [
           new Node(
             4,
             'Altia Int Env',
             1,
-            1,
+            new ParentNode(1, 'Environments'),
             [
               new Node(
                 6,
                 'Database connections Altia Int',
                 1,
-                4,
+                new ParentNode(4, 'Altia Int Env'),
                 [],
                 []
               )
@@ -34,13 +35,13 @@ export const PARENT_NODE: Node =
             5,
             'Euipo Int Env',
             2,
-            1,
+            new ParentNode(1, 'Environments'),
             [
               new Node(
                 7,
                 'Database connections Euipo Int',
                 1,
-                5,
+                new ParentNode(5, 'Euipo Int Env'),
                 [],
                 []
               )
@@ -54,7 +55,7 @@ export const PARENT_NODE: Node =
         2,
         'ShareDox',
         2,
-        0,
+        new ParentNode(0, 'Information'),
         [],
         []
       ),
@@ -62,7 +63,7 @@ export const PARENT_NODE: Node =
         3,
         'Stash',
         3,
-        0,
+        new ParentNode(0, 'Information'),
         [],
         []
       )
