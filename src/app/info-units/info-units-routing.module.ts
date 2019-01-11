@@ -16,7 +16,9 @@ const infoUnitsRouting: Routes = [
     {path: ':id/edit', component: InfoUnitEditComponent}
   ]},
   {path: 'snippets', component: CodeSnippetsListComponent},
-  {path: 'new-snippet', component: CodeSnippetEditComponent}
+  {path: 'new-snippet', component: CodeSnippetEditComponent},
+  {path: 'snippets/:id', component: CodeSnippetEditComponent},
+  {path: 'snippets/:id/edit', component: CodeSnippetEditComponent}
 ];
 
 @NgModule({

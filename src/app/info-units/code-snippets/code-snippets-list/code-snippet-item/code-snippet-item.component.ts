@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {InfoUnit} from '../../../../model/info-unit.model';
+import {ActivatedRoute, Route, Router} from '@angular/router';
 
 @Component({
   selector: 'app-code-snippet-item',
@@ -8,4 +9,7 @@ import {InfoUnit} from '../../../../model/info-unit.model';
 })
 export class CodeSnippetItemComponent {
   @Input() infoUnit: InfoUnit;
+
+  constructor(private router: Router,
+              private route: ActivatedRoute) {}
 }

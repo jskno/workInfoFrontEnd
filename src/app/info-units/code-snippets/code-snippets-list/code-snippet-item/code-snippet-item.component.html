@@ -1,10 +1,27 @@
 <div class="row">
   <div class="col-sm-5">
     <div class="row">
-      <div class="class">{{ infoUnit.name}}</div>
+      <a
+        style="cursor: pointer;"
+        [routerLink]="[infoUnit.id]" [queryParams]="{edit: false}"
+        routerLinkActive="active"
+        class="list-group-item clearfix">
+        <div class="pull-left">
+          <h4 class="list-group-item-heading">{{ infoUnit.name }}</h4>
+          <p class="list-group-item-text">{{ infoUnit.description }}</p>
+        </div>
+      </a>
     </div>
     <div class="row">
-      <div class="class">{{ infoUnit.description }}</div>
+      <a
+        style="cursor: pointer;"
+        [routerLink]="[infoUnit.id]" [queryParams]="{edit: true}"
+        routerLinkActive="active"
+        class="btn-default">
+        <div class="pull-left">
+          <button class="list-group-item-text">edit</button>
+        </div>
+      </a>
     </div>
   </div>
   <div class="col-sm-7">

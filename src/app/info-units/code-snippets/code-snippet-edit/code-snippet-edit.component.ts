@@ -16,7 +16,7 @@ import {Location} from '@angular/common';
 })
 export class CodeSnippetEditComponent implements OnInit {
   id: number;
-  editMode = false;
+  editMode = true;
   infoUnitForm: FormGroup;
   nodes: Node[];
   CODE_SNIPPETS = 'Code Snippets';
@@ -32,7 +32,7 @@ export class CodeSnippetEditComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.id = +params['id'];
-          this.editMode = params['id'] != null;
+          // this.editMode = params['edit'];
           console.log(this.editMode);
           this.fetchNodes();
         }
@@ -67,7 +67,7 @@ export class CodeSnippetEditComponent implements OnInit {
     let node = null;
     let attributes: Attribute[] = null;
 
-    if (this.editMode) {
+    if (this.id) {
       this.infoUnitService.fetchInfoUnitById(this.id)
         .subscribe(
           (infoUnit: InfoUnit) => {
@@ -86,6 +86,13 @@ export class CodeSnippetEditComponent implements OnInit {
                 'value': new FormControl(attribute.value)
               })))
             });
+            // // if (this.editMode) {
+            //   this.infoUnitForm.controls['id'].disable();
+            //   this.infoUnitForm.get('name').disable();
+            //   this.infoUnitForm.controls['description'].disable();
+            //   this.infoUnitForm.controls['node'].disable();
+            //   this.infoUnitForm.disable();
+            // // }
           }
         )
     }
